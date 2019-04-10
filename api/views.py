@@ -2,13 +2,15 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import CompanySerializer
 from .serializers import VersionSerializer
 from .serializers import PublicationSerializer
 from .models import Company
 from .models import Version
 from .models import Publication
-
+from django.utils.dateparse import parse_date
 
 
 class CompanyView(generics.ListCreateAPIView):
@@ -59,3 +61,14 @@ class PublicationDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
 	queryset = Publication.objects.all()
 	serializer_class = PublicationSerializer
+
+class PublicationByDateView(generics.ListAPIView):
+	serializer_class = PublicationSerializer
+	lookup_url_kwarg = "date"
+
+	def get_queryset(self):
+		date_str = self.kwargs.get(self.lookup_url_kwarg)
+		date =  parse_date(date_str)
+		publications = Publication.objects.filter(date_created__date = date)
+
+		return publications 	
