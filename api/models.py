@@ -20,3 +20,14 @@ class Version(models.Model):
 	def __str__(self):
 		"""Return a human readable representation of the model instance."""
 		return "{}".format(self.name, self.available)
+
+
+class Publication(models.Model):
+	"""This class represents the Version model."""
+	date_created = models.DateTimeField(auto_now_add=True)
+	company = models.ForeignKey(Company, on_delete=models.CASCADE)
+	version = models.ForeignKey(Version, on_delete=models.CASCADE)
+
+	def __str__(self):
+		"""Return a human readable representation of the model instance.""" 
+		return "{}".format(self.company, self.version)		
