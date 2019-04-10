@@ -1,14 +1,14 @@
 # api/serializers.py
 
 from rest_framework import serializers
-from .models import Companies
+from .models import Company
 from .models import Version
 
-class CompaniesSerializer(serializers.ModelSerializer):
+class CompanySerializer(serializers.ModelSerializer):
 	"""Serializer to map the Model instance into JSON format."""
 
 	class Meta:
-		model = Companies
+		model = Company
 		fields = ('id', 'name')
 
 

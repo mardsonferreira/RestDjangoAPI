@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Companies(models.Model):
+class Company(models.Model):
 	"""This class represents the Company model."""
 	name = models.CharField(max_length=255, blank=False, unique=True)
 
