@@ -70,5 +70,14 @@ class PublicationByDateView(generics.ListAPIView):
 		date_str = self.kwargs.get(self.lookup_url_kwarg)
 		date =  parse_date(date_str)
 		publications = Publication.objects.filter(date_created__date = date)
-
 		return publications 	
+
+class PublicationByVersionCodeView(generics.ListAPIView):
+	serializer_class = PublicationSerializer
+	lookup_url_kwarg = "code"
+
+	def get_queryset(self):
+		code = self.kwargs.get(self.lookup_url_kwarg)
+		version = Version.objects.get(code = code)
+		publications = Publication.objects.filter(version_id = version.id)
+		return publications

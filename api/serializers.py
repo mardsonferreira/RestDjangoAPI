@@ -18,7 +18,7 @@ class VersionSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Version
-		fields = ('id', 'name', 'date_created', 'date_modified', 'available')
+		fields = ('id', 'code', 'name', 'date_created', 'date_modified', 'available')
 		read_only_fields = ('date_created', 'date_modified')
 
 

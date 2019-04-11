@@ -12,6 +12,7 @@ class Company(models.Model):
 
 class Version(models.Model):
 	"""This class represents the Version model."""
+	code = models.CharField(max_length=7, blank=False, unique=True)
 	name = models.CharField(max_length=255, blank=False, unique=True)
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_modified = models.DateTimeField(auto_now=True)
@@ -19,7 +20,7 @@ class Version(models.Model):
 
 	def __str__(self):
 		"""Return a human readable representation of the model instance."""
-		return "{}".format(self.name, self.available)
+		return "{}".format(self.code, self.name, self.available)
 
 
 class Publication(models.Model):
