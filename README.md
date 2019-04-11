@@ -51,6 +51,8 @@ You can now access the file api service on your browser by using
 * http://127.0.0.1:8000/publications/{code_version} 
 * http://127.0.0.1:8000/publications/{name_company}
 
+Observation: the parameter between braces must be replaced by the value by which you want to perform the search.
+
 ## If you want to execute the test file, type: 
 ```
   $ python manage.py test
