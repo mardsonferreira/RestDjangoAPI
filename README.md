@@ -12,7 +12,7 @@ Then, save this repository to your PC using git clone
   $ git clone git@github.com:mardsonferreira/RestDjangoAPI.git
 ```
 
-Dependencies Enter into your the cloned repository as such: 
+Enter into your the cloned repository as such: 
 ```
   $ cd RestDjangoAPI 
 ```
@@ -26,7 +26,11 @@ Install the dependencies needed to run the app:
 ```
   $ pip install -r requirements.txt
 ```
- Make those migrations work 
+Install Django rest-framework: 
+```
+  $ pip install djangorestframework
+```
+Make those migrations work 
  ```
   $ python manage.py makemigrations
   $ python manage.py migrate
