@@ -147,12 +147,10 @@ class ViewPublicationTestCase(TestCase):
 
 	def setUp(self):
 		"""Define the test client and other test variables."""
+		version = Version.objects.create(name="Initial", code= "DESK11")
+		company = Company.objects.create(name="mycompany")
 		self.client = APIClient()
-		self.publication_data = {
-			"company": 2,
-			"version": 1
-		}
-		print(self.publication_data)
+		self.publication_data = {"company": company.id , "version": version.id}
 		self.response = self.client.post(
 			reverse('publications'),
 			self.publication_data,
@@ -161,3 +159,29 @@ class ViewPublicationTestCase(TestCase):
 	def test_api_can_create_a_publication(self):
 		"""Test the api has publication creation capability."""
 		self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+
+
+	def test_api_can_get_a_publication(self):
+		"""Test the api can get a given version."""
+		new_client = APIClient()
+		response = new_client.get('/publications/', kwargs={'pk': 1}, format="json")
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+	def test_api_can_get_a_publication_by_date(self):
+		new_client = APIClient()
+		response = new_client.get('/publications/', kwargs={'pk': '2019-04-11'}, format="json")
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)	
+
+	def test_api_can_get_a_publication_by_version(self):
+		new_client = APIClient()
+		response = new_client.get('/publications/', kwargs={'pk': 'CODE11'}, format="json")
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)		
+
+	def test_api_can_get_a_publication_by_company(self):
+		new_client = APIClient()
+		response = new_client.get('/publications/', kwargs={'pk': 'COMPANY'}, format="json")
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)			
