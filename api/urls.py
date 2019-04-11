@@ -10,6 +10,7 @@ from .views import PublicationView
 from .views import PublicationDetailsView
 from .views import PublicationByDateView
 from .views import PublicationByVersionCodeView
+from .views import PublicationByCompanyNameView
 
 urlpatterns = {
 	url(r'^companies/$', CompanyView.as_view(), name="companies"),
@@ -25,6 +26,8 @@ urlpatterns = {
 		PublicationByDateView.as_view(), name="publicationsbydate"),
 	url(r'^publications/(?P<code>[A-Z0-9_]+)/$',
 		PublicationByVersionCodeView.as_view(), name="publicationsbyversioncode"),
+	url(r'^publications/(?P<name>[-a-zA-Z_]+)/$',
+		PublicationByCompanyNameView.as_view(), name="publicationsbycpname"),
 }
 
 urlpatterns = format_suffix_patterns(urlpatterns)

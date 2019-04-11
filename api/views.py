@@ -81,3 +81,14 @@ class PublicationByVersionCodeView(generics.ListAPIView):
 		version = Version.objects.get(code = code)
 		publications = Publication.objects.filter(version_id = version.id)
 		return publications
+
+class PublicationByCompanyNameView(generics.ListAPIView):
+	serializer_class = PublicationSerializer
+	lookup_url_kwarg = "name"
+
+	def get_queryset(self):
+		name = self.kwargs.get(self.lookup_url_kwarg)
+		company = Company.objects.get(name = name)
+		publications = Publication.objects.filter(company_id = company.id)
+		return publications		
+		
