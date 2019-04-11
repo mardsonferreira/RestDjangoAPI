@@ -35,7 +35,9 @@ Make those migrations work
   $ python manage.py makemigrations
   $ python manage.py migrate
 ```  
-Running the App Start the server: 
+## Running the App 
+
+Start the server: 
 ```
   $ python manage.py runserver
 ```
