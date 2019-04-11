@@ -3,6 +3,7 @@ from django.test import TestCase
 # Create your tests here.
 from .models import Company
 from .models import Version
+from .models import Publication
 from rest_framework.test import APIClient
 from rest_framework import status
 from django.urls import reverse
@@ -64,7 +65,7 @@ class ViewCompanyTestCase(TestCase):
 
 	    self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)		
 
-class versionModelTestcase(TestCase):
+class VersionModelTestcase(TestCase):
 	"""This class defines the test suite for the version model."""
 
 	def setUp(self):
@@ -86,7 +87,7 @@ class ViewVersionTestCase(TestCase):
 	def setUp(self):
 	    """Define the test client and other test variables."""
 	    self.client = APIClient()
-	    self.version_data = {'name': 'V1.1'}
+	    self.version_data = {'name': 'V1.1', 'code' : 'WEB2900'}
 	    self.response = self.client.post(
 	        reverse('versions'),
 	        self.version_data,
@@ -107,7 +108,7 @@ class ViewVersionTestCase(TestCase):
 	def test_api_can_update_version(self):
 		"""Test the api can update a given version."""
 		version = Version.objects.get()
-		change_version = {'name': 'Something new'}
+		change_version = {'name': 'Something new', 'code' : 'DESK11'}
 		res = self.client.put(reverse('versionsdetails', kwargs={'pk': version.id}),
 			change_version, format='json')
 		self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -121,3 +122,42 @@ class ViewVersionTestCase(TestCase):
 	        follow=True)
 
 	    self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)		
+
+
+class ModelPublicationTestcase(TestCase):
+	"""This class defines the test suite for the publication model."""
+
+	def setUp(self):
+		self.version = Version(id= 1, name = "name", code = "WEB2019")
+		self.company = Company(id=1, name = "name")
+		self.publication = Publication(version = self.version, company = self.company)
+
+
+	def test_model_can_create_a_publication(self):
+		"""Test the publication model can create a version."""
+		old_count = Publication.objects.count()
+		self.version.save()
+		self.company.save()
+		self.publication.save()
+		new_count = Publication.objects.count()
+		self.assertNotEqual(old_count, new_count)
+
+class ViewPublicationTestCase(TestCase):
+	"""Test suite for the api views."""
+
+	def setUp(self):
+		"""Define the test client and other test variables."""
+		self.client = APIClient()
+		self.publication_data = {
+			"company": 2,
+			"version": 1
+		}
+		print(self.publication_data)
+		self.response = self.client.post(
+			reverse('publications'),
+			self.publication_data,
+			format="json")
+
+	def test_api_can_create_a_publication(self):
+		"""Test the api has publication creation capability."""
+		self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)

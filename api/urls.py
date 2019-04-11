@@ -20,7 +20,7 @@ urlpatterns = {
 	url(r'^versions/(?P<pk>[0-9]+)/$',
 		VersionDetailsView.as_view(), name="versionsdetails"),
 	url(r'^publications/$', PublicationView.as_view(), name="publications"),
-	url(r'^publications/(?P<pk>[0-9]+)/$',
+	url(r'^publications/(?P<pk>\d{1})/$',
 		PublicationDetailsView.as_view(), name="publicationsdetails"),
 	url(r'^publications/(?P<date>\d{4}-\d{2}-\d{2})/$',
 		PublicationByDateView.as_view(), name="publicationsbydate"),

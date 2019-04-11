@@ -24,7 +24,7 @@ class Version(models.Model):
 
 
 class Publication(models.Model):
-	"""This class represents the Version model."""
+	"""This class represents the Publication model."""
 	date_created = models.DateTimeField(auto_now_add=True)
 	company = models.ForeignKey(Company, on_delete=models.CASCADE)
 	version = models.ForeignKey(Version, on_delete=models.CASCADE)

@@ -53,7 +53,7 @@ class PublicationView(generics.ListCreateAPIView):
 	serializer_class = PublicationSerializer
 
 	def perform_create(self, serializer):
-	    """Save the post data when creating a new company."""
+	    """Save the post data when creating a new publication."""
 	    serializer.save()
 
 class PublicationDetailsView(generics.RetrieveUpdateDestroyAPIView):
